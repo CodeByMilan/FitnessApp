@@ -5,6 +5,7 @@ import User from "../database/models/User";
 import { getRecommendedPackage } from "../algorithm/kMeansHelper";
 import Package from "../database/models/Package";
 import PackageRecommendation from "../database/models/PackageRecommendation";
+import { log } from "console";
 
 class userProfileController {
   public static async createUserProfile(
@@ -12,6 +13,7 @@ class userProfileController {
     res: Response
   ): Promise<void> {
     const userId = req.user?.id;
+    console.log(userId)
     const { age, gender, fitness_level, activity_level, goal } = req.body;
 
     if (!age || !gender || !fitness_level || !activity_level || !goal) {
@@ -49,8 +51,6 @@ class userProfileController {
             });
             return;
           }
-
-    // Create the user profile
     await UserProfile.create({
       age,
       gender,
@@ -60,7 +60,6 @@ class userProfileController {
       userId,
     });
 
-    // Prepare user data vector for recommendation
     const userProfileVector = [
       fitnessLevelValue,
       activityLevelValue,
@@ -68,10 +67,8 @@ class userProfileController {
       genderValue,
     ];
 
-    // Get the recommended package
     const recommendedPackage = getRecommendedPackage(userProfileVector);
 
-    // Fetch the packages from the database
     const packages = await Package.findAll();
     const packageNameToIdMap: { [key: string]: string } = {};
 
@@ -99,18 +96,15 @@ class userProfileController {
       packageId: recommendedPackageId,
     });
 
-    // Fetch the newly created UserProfile along with User data
     const userProfileWithUser = await UserProfile.findOne({
       where: { userId },
       include: [
         {
           model: User,
-          attributes: ["id", "email"], // specify fields from User table
+          attributes: ["id", "email"], 
         },
       ],
     });
-
-    // Send the created user profile data with associated user data in the response
     res.status(200).json({
       message: "UserProfile created successfully",
       data:{
@@ -150,6 +144,7 @@ class userProfileController {
     res: Response
   ): Promise<void> {
     const userId = req.params.id;
+    console.log(userId)
     const user= await UserProfile.findOne({
       where: {
         userId,

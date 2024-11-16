@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "./store";
-import { APIAuthenticated } from "../http";
+import { API, APIAuthenticated } from "../http";
 import { UserProfile, UserProfileState } from "./storetypes/userTypes";
 import { authStatus } from "./storetypes/storeTypes";
 
@@ -47,18 +47,16 @@ export function addToUserProfile(formData: any) {
     try {
       const response = await APIAuthenticated.post(
         "/customer/userprofile/register",
-        formData,
-        {
-          headers: { "Content-Type": "application/json" },
-        }
+        formData
       );
+      console.log('API Response:', response);
 
       if (response.status === 200) {
         const { message, data } = response.data;
         console.log("milan");
         console.log(data);
         console.log(message);
-
+        
         dispatch(setSingleUser(response.data.data));
         dispatch(setStatus(authStatus.success));
       } else {

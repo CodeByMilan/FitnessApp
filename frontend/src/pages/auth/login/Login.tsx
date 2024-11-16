@@ -20,11 +20,9 @@ const Login = () => {
   }
   useEffect (()=>{
     if(status===authStatus.success){
-
       dispatch(resetStatus())
       navigate("/")
     }else if (status === authStatus.error && errorMessage) {
-      toast.error(errorMessage); 
       dispatch(resetStatus());
     }
   },[status,navigate,dispatch])
@@ -32,12 +30,8 @@ const Login = () => {
     <>
     <Navbar/>
       <Form type="Login" onSubmit={handlelogin}/>
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
-      {status === authStatus.error && errorMessage && (
-        <div className="error-message">
-          {errorMessage}
-        </div>
-      )}
+  
+     
       <Footer />
             </>
   )
