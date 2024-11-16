@@ -51,23 +51,22 @@ export function fetchUsers() {
 
     const token = localStorage.getItem('token');
     if (!token) {
-      // If token is missing, handle the error, e.g., redirect to login page
       console.error("Token is missing, please log in.");
       dispatch(setStatus(authStatus.error));
-      return; // Prevent further action if no token
+      return;
     }
 
     try {
       const response = await APIAuthenticated.get('/users', {
         headers: {
-          'Authorization': `Bearer ${token}`, // Explicitly send token in the request
+          'Authorization': `Bearer ${token}`, 
         }
       });
 
       if (response.status === 200) {
         const { data } = response.data;
         dispatch(setStatus(authStatus.success));
-        dispatch(setUsers(data)); // Assuming response.data.data contains the users list
+        dispatch(setUsers(data)); 
       } else {
         dispatch(setStatus(authStatus.error));
       }

@@ -63,6 +63,8 @@ export function login(data: LoginData) {
             dispatch(setStatus(authStatus.success))
             dispatch(setToken(data))
             localStorage.setItem('token',data)
+            console.log('Token saved in Redux state:', data);
+            console.log('Token saved in localStorage:', localStorage.getItem('token'))
         }
         else{
             dispatch(setStatus(authStatus.error))

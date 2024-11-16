@@ -11,7 +11,7 @@ router.route("/register")
 router.route("/login").post(errorHandler(AuthController.loginUser))
 
 router.route("/users")
-.get(authMiddleWare.isAuthenticated,authMiddleWare.resetrictTo(Role.ADMIN),errorHandler(UserController.fetchUserDetails))
+.get(errorHandler(UserController.fetchUserDetails))
 
 
 export default router

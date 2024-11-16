@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authStatus } from '../types/status';
 import { AppDispatch } from './store';
 import { Initialstate, Workout } from '../types/data';
-import { APIAuthenticated } from '../http';
+import { API, APIAuthenticated } from '../http';
 
 
 const initialState: Initialstate = {
@@ -41,7 +41,7 @@ export function addWorkout(data: Workout,navigate:Function) {
     return async function addWorkoutThunk(dispatch: AppDispatch) {
       dispatch(setStatus(authStatus.loading));
       try {
-        const response = await APIAuthenticated.post('/admin/workout', data);
+        const response = await API.post('/admin/workout', data);
         if (response.status == 200) {
           console.log("hello");
           console.log(response.data)
@@ -61,7 +61,7 @@ export function fetchWorkout() {
   return async function fetchWorkoutThunk(dispatch: AppDispatch) {
     dispatch(setStatus(authStatus.loading));
     try {
-      const response = await APIAuthenticated.get('/admin/workout');
+      const response = await API.get('/admin/workout');
       if (response.status == 200) {
         const { data } = response.data;
         console.log(data)
@@ -80,7 +80,7 @@ export function deleteWorkout(workoutId: string) {
     return async function deleteProductThunk(dispatch: AppDispatch) {
       dispatch(setStatus(authStatus.loading));
       try {
-        const response = await APIAuthenticated.delete(`/admin/workout/${workoutId}`);
+        const response = await API.delete(`/admin/workout/${workoutId}`);
         if (response.status == 200) {
           dispatch(setStatus(authStatus.success));
           dispatch(setRemoveWorkout(workoutId));
@@ -97,7 +97,7 @@ export function deleteWorkout(workoutId: string) {
     return async function updateProductThunk(dispatch: AppDispatch) {
       dispatch(setStatus(authStatus.loading));
       try {
-        const response = await APIAuthenticated.patch(`/admin/workout/${workoutId}`,data,
+        const response = await API.patch(`/admin/workout/${workoutId}`,data,
             {
                 headers: { "Content-Type": "application/json" },
               }
@@ -118,7 +118,7 @@ export function deleteWorkout(workoutId: string) {
     return async function fetchOneWorkoutThunk(dispatch: AppDispatch) {
       dispatch(setStatus(authStatus.loading));
       try {
-        const response = await APIAuthenticated.get(`/admin/workout/${workoutId}`);
+        const response = await API.get(`/admin/workout/${workoutId}`);
         if (response.status == 200) {
           dispatch(setSingleWorkout(response.data.data));
           dispatch(setStatus(authStatus.success));
