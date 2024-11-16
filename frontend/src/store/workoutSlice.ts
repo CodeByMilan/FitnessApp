@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AppDispatch } from "./store";
-import {API} from "../http";
+import {API, APIAuthenticated} from "../http";
 import { Package, PackageState, Workout, WorkoutState } from "./storetypes/packageTypes";
 import { authStatus } from "./storetypes/storeTypes";
 
@@ -27,7 +27,7 @@ export function fetchWorkoutByPackageId(packageId:string) {
   return async function fetchWorkoutByPackageIdThunk(dispatch: AppDispatch) {
     dispatch(setStatus(authStatus.loading));
     try {
-      const response = await API.get(`workoutpackage/${packageId}`);
+      const response = await APIAuthenticated.get(`workoutpackage/${packageId}`);
       if (response.status == 200) {
         const { data } = response.data;
         console.log(data)

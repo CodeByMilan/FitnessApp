@@ -8,10 +8,12 @@ const router:Router=express.Router()
 router.route("/register")
 .post(errorHandler(AuthController.registerUser))
 
+router.route("/users")
+.get(authMiddleWare.isAuthenticated,errorHandler(UserController.fetchUserDetails))
+
 router.route("/login").post(errorHandler(AuthController.loginUser))
 
-router.route("/users")
-.get(errorHandler(UserController.fetchUserDetails))
+
 
 
 export default router

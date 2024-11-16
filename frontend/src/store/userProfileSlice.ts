@@ -54,10 +54,10 @@ export function addToUserProfile(formData: any) {
       );
 
       if (response.status === 200) {
-        // const { message, data } = response.data;
-        // console.log("milan");
-        // console.log(data);
-        // console.log(message);
+        const { message, data } = response.data;
+        console.log("milan");
+        console.log(data);
+        console.log(message);
 
         dispatch(setSingleUser(response.data.data));
         dispatch(setStatus(authStatus.success));

@@ -43,6 +43,7 @@ class userProfileController {
 
           const existingProfile = await UserProfile.findOne({ where: { userId } });
           if (existingProfile) {
+            console.log("Existing Profile Found:", existingProfile.toJSON());
             res.status(400).json({
               message: "User already has a profile",
             });

@@ -1,11 +1,6 @@
-
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { useEffect } from 'react';
 import { fetchUsers } from '../../store/packageSlice';
-
-
-
-
 const TableOne = () => {
   const  dispatch =useAppDispatch()
   const {users}=useAppSelector((state)=>state.package)

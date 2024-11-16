@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar'
 import { useAppDispatch, useAppSelector } from '../../../store/hooks'
 import { login, resetStatus } from '../../../store/authSlice'
 import { toast, ToastContainer } from 'react-toastify'
+import Footer from '../../components/Footer'
 
 const Login = () => {
   const {status,errorMessage}=useAppSelector((state)=>state.auth)
@@ -37,7 +38,8 @@ const Login = () => {
           {errorMessage}
         </div>
       )}
-    </>
+      <Footer />
+            </>
   )
 }
 

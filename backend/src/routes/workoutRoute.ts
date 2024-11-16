@@ -6,16 +6,16 @@ import WorkoutController from '../controller/workoutController'
 const router:Router=express.Router()
 
 router.route("/admin/workout")
-.post(errorHandler(WorkoutController.postWorkout))
-.get(errorHandler(WorkoutController.getAllWokout))
+.post(authMiddleWare.isAuthenticated,authMiddleWare.resetrictTo(Role.ADMIN),errorHandler(WorkoutController.postWorkout))
+.get(authMiddleWare.isAuthenticated,authMiddleWare.resetrictTo(Role.ADMIN),errorHandler(WorkoutController.getAllWokout))
 
 router.route("/admin/workout/:id")
-.patch(errorHandler(WorkoutController.updateWorkout))
-.delete(errorHandler(WorkoutController.deleteWoekout))
-.get(errorHandler(WorkoutController.getOneWorkout))
+.patch(authMiddleWare.isAuthenticated,authMiddleWare.resetrictTo(Role.ADMIN),errorHandler(WorkoutController.updateWorkout))
+.delete(authMiddleWare.isAuthenticated,authMiddleWare.resetrictTo(Role.ADMIN),errorHandler(WorkoutController.deleteWoekout))
+.get(authMiddleWare.isAuthenticated,authMiddleWare.resetrictTo(Role.ADMIN),errorHandler(WorkoutController.getOneWorkout))
 
 router.route("/workoutpackage/:packageId")
-.get(errorHandler(WorkoutController.getWorkoutByPackageId))
+.get(authMiddleWare.isAuthenticated,authMiddleWare.resetrictTo(Role.CUSTOMER),errorHandler(WorkoutController.getWorkoutByPackageId))
 
 
 export default router

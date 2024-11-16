@@ -57,22 +57,22 @@ export function fetchUsers() {
     }
 
     try {
-      const response = await APIAuthenticated.get('/users', {
-        headers: {
-          'Authorization': `Bearer ${token}`, 
-        }
-      });
-
-      if (response.status === 200) {
+      const response = await APIAuthenticated.get('/users')
+      if (response.status === 200 && response.data?.data) {
         const { data } = response.data;
         dispatch(setStatus(authStatus.success));
-        dispatch(setUsers(data)); 
+        dispatch(setUsers(data));
       } else {
         dispatch(setStatus(authStatus.error));
+        console.error("Unexpected response format or status.");
       }
-    } catch (error) {
+    } catch (error:any) {
       dispatch(setStatus(authStatus.error));
-      console.error("API error:", error);
+      if (error.response) {
+        console.error("API error response:", error.response.data);
+      } else {
+        console.error("API error message:", error.message);
+      }
     }
   };
 }
