@@ -1,9 +1,11 @@
-import React from 'react'
+
 import Hero from './components/Hero'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import TopPackage from './components/element/TopPackage'
+
 import BMICalculator from './components/element/BMICalculator'
+import Review from './components/element/Review'
+import Services from './Services'
 
 
 const Home = () => {
@@ -11,8 +13,8 @@ const Home = () => {
   <>
   <Navbar/>
   <Hero/>
-  <TopPackage/>
   <BMICalculator/>
+  <Review/>
   <Footer/>
   </>
   )

@@ -44,7 +44,7 @@ const UserProfile = () => {
       }
     };
     if (errorMessage) {
-      toast.error(errorMessage);  // Show error as a toast notification
+      toast.error(errorMessage);  
     }
   return (
     <>

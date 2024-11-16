@@ -3,6 +3,11 @@ import { AuthRequest } from "../middleware/authMiddleWare";
 import Workout from "../database/models/Workout";
 import User from "../database/models/User";
 
+
+interface Package extends Request{
+  id: string,
+
+}
 class WorkoutController {
   public static async postWorkout(
     req: AuthRequest,
@@ -52,6 +57,27 @@ class WorkoutController {
       data,
     });
   }
+  public static async getOneWorkout(
+    req: Request,
+    res: Response
+  ): Promise<void> {
+    const id = req.params.id;
+    const data = await Workout.findOne({
+      where: {
+        id: id,
+      },
+    });
+    if(!data){
+      res.status(404).json({
+        message: "workout not found",
+      });
+    }else{
+    res.status(200).json({
+      message: "workout fetched successfully",
+      data,
+    });
+  }
+}
 
   public static async deleteWoekout(
     req: AuthRequest,
@@ -116,5 +142,35 @@ class WorkoutController {
       });
     }
   }
+  
+public static async getWorkoutByPackageId(
+  req: Package,
+  res: Response
+): Promise<void> {
+  const { packageId } = req.params; 
+  console.log("package id:",packageId)
+
+  try {
+    const data = await Workout.findAll({
+      where: {
+        packageId: packageId,  
+      },
+    });
+    if (!data) {
+      res.status(404).json({
+        message: "Workout not found for the provided packageId",
+      });
+    } else {
+      res.status(200).json({
+        message: "Workout fetched successfully",
+        data,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: "An error occurred while fetching the workout",
+    });
+  }
+}
 }
 export default WorkoutController;

@@ -45,7 +45,7 @@ const adminSlice= createSlice({
     resetToken(state:AuthState){
       state.user.token = ''
     }, 
-
+  
   },
 });
 

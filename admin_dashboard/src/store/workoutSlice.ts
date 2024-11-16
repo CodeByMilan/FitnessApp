@@ -24,15 +24,20 @@ const workoutSlice = createSlice({
     },
     setSingleWorkout(state:Initialstate,action:PayloadAction<Workout>){
       state.singleWorkout=action.payload
+    },
+    setRemoveWorkout(state: Initialstate, action: PayloadAction<string>) {
+      state.workout = state.workout.filter(
+        (workout) => workout.id !== action.payload
+      );
     }
   },
 });
-export const { setStatus,setWorkout,setSingleWorkout } =
+export const { setStatus,setWorkout,setSingleWorkout,setRemoveWorkout } =
   workoutSlice.actions;
 export default workoutSlice.reducer;
 
 
-export function addWorkout(data: Workout) {
+export function addWorkout(data: Workout,navigate:Function) {
     return async function addWorkoutThunk(dispatch: AppDispatch) {
       dispatch(setStatus(authStatus.loading));
       try {
@@ -42,6 +47,7 @@ export function addWorkout(data: Workout) {
           console.log(response.data)
           dispatch(setSingleWorkout(response.data.data))
           dispatch(setStatus(authStatus.success));
+          navigate('/')
         } else {
           dispatch(setStatus(authStatus.error));
         }
@@ -77,6 +83,7 @@ export function deleteWorkout(workoutId: string) {
         const response = await APIAuthenticated.delete(`/admin/workout/${workoutId}`);
         if (response.status == 200) {
           dispatch(setStatus(authStatus.success));
+          dispatch(setRemoveWorkout(workoutId));
         } else {
           dispatch(setStatus(authStatus.error));
         }
@@ -106,4 +113,23 @@ export function deleteWorkout(workoutId: string) {
       }
     };
   }
+  //TODo:bug needed to fix
+  export function fetchOneWorkout(workoutId: string) {
+    return async function fetchOneWorkoutThunk(dispatch: AppDispatch) {
+      dispatch(setStatus(authStatus.loading));
+      try {
+        const response = await APIAuthenticated.get(`/admin/workout/${workoutId}`);
+        if (response.status == 200) {
+          dispatch(setSingleWorkout(response.data.data));
+          dispatch(setStatus(authStatus.success));
+      
+        } else {
+          dispatch(setStatus(authStatus.error));
+        }
+      } catch (error) {
+        dispatch(setStatus(authStatus.error));
+      }
+    };
+  }
+
  

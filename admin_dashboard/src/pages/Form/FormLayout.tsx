@@ -4,10 +4,10 @@ import { Workout } from "../../types/data";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchPackage } from "../../store/packageSlice";
 import { addWorkout } from "../../store/workoutSlice";
-import { useNavigate } from "react-router-dom";
-import { authStatus } from "../../types/status";
+import { useNavigate, useParams } from "react-router-dom";
 
 const FormLayout = () => {
+   const { id } = useParams(); 
 
   const navigate =useNavigate()
   const [formData, setFormData] = useState<Workout>({
@@ -23,17 +23,12 @@ const FormLayout = () => {
 
   const dispatch = useAppDispatch();
   const { packages } = useAppSelector((state) => state.package);
-  const { status ,singleWorkout} = useAppSelector((state) => state.workout);
+ 
   
   useEffect(() => {
     dispatch(fetchPackage());
   }, [dispatch]);
    
-  useEffect(() => {
-    if (status === authStatus.success && singleWorkout&& singleWorkout.id) {
-      navigate("/tables");
-    }
-  }, [status, singleWorkout, navigate]);
  
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -56,8 +51,15 @@ const FormLayout = () => {
  
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
+    if (!token) {
+     
+      console.log("Token is missing. Please log in.");
+      navigate('/login');
+      return; 
+    }
     console.log(formData);
-    dispatch(addWorkout(formData))
+    dispatch(addWorkout(formData,navigate))
   };
  
 

@@ -4,11 +4,8 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
 import SignIn from './pages/Authentication/SignIn';
-import Chart from './pages/Chart';
-import ECommerce from './pages/Dashboard/ECommerce';
 import FormLayout from './pages/Form/FormLayout';
 import Profile from './pages/Profile';
-import Settings from './pages/Settings';
 import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
@@ -43,18 +40,7 @@ function App() {
             </>
           }
         />
-        
-        <Route
-          index
-          element={
-            <>
-             <DefaultLayout>
-              <PageTitle title="eCommerce Dashboard " />
-              <ECommerce />
-              </DefaultLayout>
-            </>
-          }
-        />
+
         <Route
           path="/profile"
           element={
@@ -67,49 +53,28 @@ function App() {
           }
         />
         <Route
-          path="/forms/form-layout"
+          path="/addWorkout"
           element={
             <>
             <DefaultLayout>
-            <PageTitle title="Form Layout " />
+            <PageTitle title="Add Workout" />
             <FormLayout />
             </DefaultLayout>
             </>
           }
         />
         <Route
-          path="/tables"
+          path="/"
           element={
             <>
              <DefaultLayout>
-             <PageTitle title="Tables " />
+             <PageTitle title="DashBoard" />
              <Tables />
              </DefaultLayout>
             </>
           }
         />
-        <Route
-          path="/settings"
-          element={
-            <>
-             <DefaultLayout>
-             <PageTitle title="Settings " />
-             <Settings />
-             </DefaultLayout>
-            </>
-          }
-        />
-        <Route
-          path="/chart"
-          element={
-            <>
-             <DefaultLayout>
-             <PageTitle title="Basic Chart " />
-             <Chart />
-             </DefaultLayout>
-            </>
-          }
-        />
+        
         <Route
           path="/ui/alerts"
           element={

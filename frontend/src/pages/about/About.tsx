@@ -1,8 +1,11 @@
 import React from 'react'
+import Navbar from '../components/Navbar'
+import Footer from '../components/Footer'
 
 const About = () => {
   return (
    <>
+   <Navbar/>
    <section className="bg-gray-100" id="aboutus">
     <div className="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-8">
@@ -24,6 +27,7 @@ const About = () => {
         </div>
     </div>
 </section>
+<Footer/>
    </>
   )
 }

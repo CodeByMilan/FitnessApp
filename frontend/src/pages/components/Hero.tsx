@@ -3,7 +3,7 @@ import React from "react";
 const Hero = () => {
     return (
         <>
-            <div>
+            <div className="mb-0 p-0">
                 <section className="h-dvh w-dvw max-h-[80rem] relative">
                     <div className="absolute inset-0 z-[1]">
                         <img

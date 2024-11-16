@@ -89,17 +89,6 @@ const Login = () => {
                 Submit
               </button>
             </div>
-            <div className="flex justify-center">
-              <p className="text-l  text-center pt-5 font-serif px-2 tracking-wider">
-
-                <Link
-                  to="/login"
-                  className="hover:text-blue-600 "
-                >
-                  Login
-                </Link>
-              </p>
-            </div>
           </form>
         </div>
       </div>

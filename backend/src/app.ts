@@ -34,7 +34,7 @@ const startServer = async () => {
 
     // Set up routes
     app.use('', userRoute);
-    app.use('/admin', workoutRoute);
+    app.use('', workoutRoute);
     app.use('', userProfileRoute);
     app.use("",packageRoute)
     // app.use('', kMeansRoute);

@@ -3,13 +3,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "./authSlice";
 import packageSlice from "./packageSlice";
 import userProfileSlice from './userProfileSlice'
+import workoutSlice from "./workoutSlice";
 
 
 const store =configureStore ({
     reducer: {
         auth:authSlice,
         package:packageSlice,
-        userProfile:userProfileSlice
+        userProfile:userProfileSlice,
+        workout:workoutSlice
        
     }
 })

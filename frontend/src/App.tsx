@@ -8,6 +8,7 @@ import store from './store/store'
 import Packages from './pages/Services'
 import UserProfile from './pages/userProfile/UserProfile'
 import UserDashboard from './pages/userProfile/UserDashboard'
+import WorkoutPage from './pages/userProfile/WokoutPage'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/service" element={<Packages/>}/> 
       <Route path="/userprofile" element={<UserProfile/>}/> 
       <Route path="/userprofile/dashboard/:id" element={<UserDashboard/>}/> 
+      <Route  path="/yourworkout/:packageId" element={<WorkoutPage/>}/> 
      </Routes>
      </BrowserRouter>
      </Provider>
